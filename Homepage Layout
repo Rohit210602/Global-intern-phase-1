@@ -1,0 +1,110 @@
+src/components/
+├── SearchBar/
+├── CategoryFilters/
+└── ShopList/
+import React from 'react';
+const SearchBar = ({ searchTerm, setSearchTerm }) => {
+  return (
+    <input
+      type="text"
+      placeholder="Search for shops..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      className="search-bar"
+    />
+  );
+};
+
+export default SearchBar;
+import React from 'react';
+
+const categories = ["All", "Food", "Clothing", "Electronics", "Books"];
+
+const CategoryFilters = ({ selectedCategory, setSelectedCategory }) => {
+  return (
+    <div className="category-filters">
+      {categories.map((category) => (
+        <button
+          key={category}
+          className={category === selectedCategory ? 'active' : ''}
+          onClick={() => setSelectedCategory(category)}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+export default CategoryFilters;
+import React, { useState } from 'react';
+import SearchBar from './components/SearchBar/SearchBar';
+import CategoryFilters from './components/CategoryFilters/CategoryFilters';
+import ShopList from './components/ShopList/ShopList';
+import './App.css';
+
+const App = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  return (
+    <div className="app">
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <CategoryFilters selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+      <ShopList selectedCategory={selectedCategory} />
+    </div>
+  );
+};
+
+export default App;
+/* App.css */
+.app {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.category-filters {
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.shop-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.shop-item {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+@media(min-width: 768px) {
+  .app {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .category-filters {
+    flex-direction: column;
+    width: 200px;
+  }
+
+  .shop-list {
+    width: calc(100% - 200px);
+  }
+
+  .shop-item {
+    width: calc(33% - 20px); /* 3 columns for desktop */
+  }
+}
