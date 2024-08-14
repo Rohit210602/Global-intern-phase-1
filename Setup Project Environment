@@ -1,0 +1,20 @@
+npx create-react-app my-app
+npm install axios
+npm install redux react-redux
+npm install redux-thunk
+my-app/
+├── public/
+├── src/
+│   ├── components/    # Reusable components
+│   ├── containers/    # Components connected to Redux
+│   ├── redux/         # Redux related files
+│   │   ├── actions/
+│   │   ├── reducers/
+│   │   └── store.js   # Redux store setup
+│   ├── services/      # API calls using Axios
+│   ├── styles/        # CSS/SCSS files
+│   ├── App.js
+│   └── index.js
+├── package.json
+└── README.md
+npm start
